@@ -17,18 +17,28 @@ in {
 
     environment = mkOption {
       default = "";
+      example = ''
+        export DISPLAY=:0
+        export XAUTHORITY=/home/user/.Xauthority
+      '';
       type = types.str;
       description = "Bash script for environment variables.";
     };
 
     dockEvent = mkOption {
       default = "";
+      example = ''
+        $\{pkgs.xorg.xrandr\}/bin/xrandr --output DP-2-1 --mode 1920x1080 --right-of eDP-1
+      '';
       type = types.str;
       description = "Bash script to be executed on docking.";
     };
 
     undockEvent = mkOption {
       default = "";
+      example = ''
+        $\{pkgs.xorg.xrandr\}/bin/xrandr --output DP-2-1 --off
+      '';
       type = types.str;
       description = "Bash script to be executed on undocking.";
     };
@@ -37,7 +47,6 @@ in {
   config = mkIf cfg.enable {
     services.acpid = {
       enable = true;
-      logEvents = true;  # XXX
 
       handlers.thinkpadDock = {
         event = "ibm/hotkey";

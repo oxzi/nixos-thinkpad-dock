@@ -24,7 +24,7 @@ function is_event {
 
 # log MESSAGE to a temporary file for debugging or just suppress it.
 function log {
-  echo "$1" >> /tmp/hotkeylog
+  # echo "$1" >> /tmp/hotkeylog
   :
 }
 
