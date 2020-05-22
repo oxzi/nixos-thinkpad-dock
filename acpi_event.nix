@@ -1,4 +1,5 @@
 { stdenv, lib
+, environment ? null
 , dockEvent ? null
 , undockEvent ? null
 }:
@@ -10,6 +11,7 @@ stdenv.mkDerivation {
 
   postPatch = ''
     substituteInPlace acpi_event.sh \
+      --subst-var-by environment ${environment} \
       --subst-var-by dockEvent ${dockEvent} \
       --subst-var-by undockEvent ${undockEvent}
   '';

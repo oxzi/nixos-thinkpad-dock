@@ -4,15 +4,22 @@ with lib;
 let
   cfg = config.hardware.thinkpad-dock;
 
-  dockEvent   = pkgs.writeText "dock.sh"   cfg.dockEvent;
-  undockEvent = pkgs.writeText "undock.sh" cfg.undockEvent;
+  environment = pkgs.writeText "environment.sh" cfg.environment;
+  dockEvent   = pkgs.writeText "dock.sh"        cfg.dockEvent;
+  undockEvent = pkgs.writeText "undock.sh"      cfg.undockEvent;
 
   acpiEvent = pkgs.callPackage ./acpi_event.nix {
-     inherit dockEvent undockEvent;
+     inherit environment dockEvent undockEvent;
   };
 in {
   options.hardware.thinkpad-dock = {
     enable = mkEnableOption "Register ThinkPad ACPI event handler for dock";
+
+    environment = mkOption {
+      default = "";
+      type = types.str;
+      description = "Bash script for environment variables.";
+    };
 
     dockEvent = mkOption {
       default = "";
