@@ -1,4 +1,4 @@
-{ stdenv, lib
+{ stdenv, lib, utillinux
 
 , environment
 , dockEvent
@@ -12,6 +12,7 @@ stdenv.mkDerivation {
 
   postPatch = ''
     substituteInPlace acpi_event.sh \
+      --subst-var-by logger ${utillinux}/bin/logger \
       --subst-var-by environment "${environment}" \
       --subst-var-by dockEvent "${dockEvent}" \
       --subst-var-by undockEvent "${undockEvent}"

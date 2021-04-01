@@ -22,10 +22,9 @@ function is_event {
 }
 
 
-# log MESSAGE to a temporary file for debugging or just suppress it.
+# log MESSAGE to the system log for debugging.
 function log {
-  # echo "$1" >> /tmp/hotkeylog
-  :
+  @logger@ "[ThinkPad Dock ACPI-Event] $@"
 }
 
 
