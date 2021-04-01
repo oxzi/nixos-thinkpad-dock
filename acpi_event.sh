@@ -47,18 +47,18 @@ event_code="${args[3]}"
 [[ "$EVENT_TYPE" != "$event_type" ]] && \
   log "invalid event type: $event_type instead of $EVENT_TYPE" && exit 1
 
-. @environment@
+@environment@
 
 if is_event $TP_HKEY_EV_HOTPLUG_DOCK "$event_code"; then
   log "dock event"
 
   sleep 2
-  . @dockEvent@
+  @dockEvent@
 elif is_event $TP_HKEY_EV_HOTPLUG_UNDOCK "$event_code"; then
   log "undock event"
 
   sleep 2
-  . @undockEvent@
+  @undockEvent@
 else
   log "unsupported event code $event_code"
 fi

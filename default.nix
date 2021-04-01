@@ -3,13 +3,8 @@
 with lib;
 let
   cfg = config.hardware.thinkpad-dock;
-
-  environment = pkgs.writeText "environment.sh" cfg.environment;
-  dockEvent   = pkgs.writeText "dock.sh"        cfg.dockEvent;
-  undockEvent = pkgs.writeText "undock.sh"      cfg.undockEvent;
-
   acpiEvent = pkgs.callPackage ./acpi_event.nix {
-     inherit environment dockEvent undockEvent;
+     inherit (cfg) environment dockEvent undockEvent;
   };
 in {
   options.hardware.thinkpad-dock = {

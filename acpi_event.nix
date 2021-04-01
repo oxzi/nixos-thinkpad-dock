@@ -1,7 +1,8 @@
 { stdenv, lib
-, environment ? null
-, dockEvent ? null
-, undockEvent ? null
+
+, environment
+, dockEvent
+, undockEvent
 }:
 
 stdenv.mkDerivation {
@@ -11,10 +12,14 @@ stdenv.mkDerivation {
 
   postPatch = ''
     substituteInPlace acpi_event.sh \
-      --subst-var-by environment ${environment} \
-      --subst-var-by dockEvent ${dockEvent} \
-      --subst-var-by undockEvent ${undockEvent}
+      --subst-var-by environment "${environment}" \
+      --subst-var-by dockEvent "${dockEvent}" \
+      --subst-var-by undockEvent "${undockEvent}"
   '';
 
-  installPhase = "cp acpi_event.sh $out";
+  installPhase = ''
+    runHook preInstall
+    cp acpi_event.sh $out
+    runHook postInstall
+  '';
 }
